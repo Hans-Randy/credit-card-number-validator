@@ -34,9 +34,6 @@ namespace Web.Controllers
         {
             try
             {
-                if (creditCardProvider.MajorIndustryIdentifier.ToString().Length != 1)
-                    throw new Exception("The [Major Industry Identifier] must be one digit long.");
-                
                 var creditCardProviderManager = new CreditCardProviderManager();
                 
                 if (Validator.CheckIfCreditCardProviderNameAlreadyExists(creditCardProvider, creditCardProviderManager.Items))

@@ -27,14 +27,30 @@ public static class Validator
 
     public static bool ValidateMII(string cardNo, List<CreditCardProvider> creditCardProviders)
     {
-        int actualMajorIndustryIdentifier = cardNo[0] - '0';
-        return creditCardProviders.Any(x => x.MajorIndustryIdentifier == actualMajorIndustryIdentifier);
+        foreach(var creditCardProvider in creditCardProviders)
+        {
+            int digitCount = (creditCardProvider.MajorIndustryIdentifier.GetNumberOfDigits());
+            int extractedMajorIndustryIdentifier = Convert.ToInt32(cardNo.Substring(0, digitCount));
+
+            if (extractedMajorIndustryIdentifier == creditCardProvider.MajorIndustryIdentifier)
+                return true;
+        }
+
+        return false;
     }
 
     public static CreditCardProvider? GetCreditCardProvider(string cardNo, List<CreditCardProvider> creditCardProviders)
     {
-        int actualMajorIndustryIdentifier = cardNo[0] - '0';
-        return creditCardProviders.FirstOrDefault(x => x.MajorIndustryIdentifier == actualMajorIndustryIdentifier);
+        foreach(var creditCardProvider in creditCardProviders)
+        {
+            int digitCount = (creditCardProvider.MajorIndustryIdentifier.GetNumberOfDigits());
+            int extractedMajorIndustryIdentifier = Convert.ToInt32(cardNo.Substring(0, digitCount));
+
+            if (extractedMajorIndustryIdentifier == creditCardProvider.MajorIndustryIdentifier)
+                return creditCardProvider;
+        }
+
+        return null;
     }
 
     public static bool CheckIfMajorIndustryIdentifierAlreadyExists(CreditCardProvider creditCardProvider, List<CreditCardProvider> creditCardProviders)

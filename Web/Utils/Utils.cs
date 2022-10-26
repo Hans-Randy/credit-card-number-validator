@@ -16,4 +16,17 @@ public static class Utils
     {
         return Regex.Replace(input, @"\s+", "");
     }
+
+    public static int GetNumberOfDigits(this int input)
+    {
+        int count = 0;
+
+        while (input > 0)
+        {
+            input = input / 10;
+            count++;
+        }
+
+        return count;
+    }
 }
