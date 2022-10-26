@@ -39,8 +39,13 @@ public class CreditCardManager : IEntityManager<CreditCard>
     public void Update(CreditCard creditCard)
     {
         var item = Items.FirstOrDefault(x => x.Id == creditCard.Id);
-        item.Number = creditCard.Number;
-        item.CreditCardProviderName = creditCard.CreditCardProviderName;
+
+        if (item != null)
+        {
+            item.Number = creditCard.Number;
+            item.CreditCardProviderName = creditCard.CreditCardProviderName;
+        }
+
         Items.WriteToFile();
     }
 }

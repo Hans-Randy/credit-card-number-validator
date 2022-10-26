@@ -13,7 +13,7 @@ public static class FileWriter
         {
             foreach (var item in list)
             {
-                writer.Write($"{item.Id},{item.Number},{item.CreditCardProviderName}");   
+                writer.WriteLine($"{item.Id},{item.Number},{item.CreditCardProviderName}");   
             }
         } 
     }
@@ -24,7 +24,7 @@ public static class FileWriter
         {
             foreach (var item in list)
             {
-                writer.Write($"{item.Id},{item.Name},{item.MajorIndustryIdentifier}");   
+                writer.WriteLine($"{item.Id},{item.Name},{item.MajorIndustryIdentifier}");   
             }
         } 
     }
