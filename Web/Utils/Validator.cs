@@ -2,9 +2,9 @@ using Web.Models;
 
 namespace Web.Utils;
 
-public static class CreditCardNoValidator
+public static class Validator
 {
-    public static bool Validate(string cardNo)
+    public static bool ValidateCardNo(string cardNo)
     {
         var cardNoLength = cardNo.Length;
         var sum = 0;
@@ -25,20 +25,30 @@ public static class CreditCardNoValidator
         return sum % 10 == 0;
     }
 
-    public static bool ValidateMajorIndustryIdentifier(string cardNo, HashSet<CreditCardProvider> creditCardProviders)
+    public static bool ValidateMII(string cardNo, List<CreditCardProvider> creditCardProviders)
     {
         int actualMajorIndustryIdentifier = cardNo[0] - '0';
         return creditCardProviders.Any(x => x.MajorIndustryIdentifier == actualMajorIndustryIdentifier);
     }
 
-    public static CreditCardProvider? GetCreditCardProvider(string cardNo, HashSet<CreditCardProvider> creditCardProviders)
+    public static CreditCardProvider? GetCreditCardProvider(string cardNo, List<CreditCardProvider> creditCardProviders)
     {
         int actualMajorIndustryIdentifier = cardNo[0] - '0';
         return creditCardProviders.FirstOrDefault(x => x.MajorIndustryIdentifier == actualMajorIndustryIdentifier);
     }
 
-    public static bool CheckIfMajorIndustryIdentifierAlreadyExists(CreditCardProvider creditCardProvider, HashSet<CreditCardProvider> creditCardProviders)
+    public static bool CheckIfMajorIndustryIdentifierAlreadyExists(CreditCardProvider creditCardProvider, List<CreditCardProvider> creditCardProviders)
     {
-        return creditCardProviders.Any(x => x.ID != creditCardProvider.ID && x.MajorIndustryIdentifier == creditCardProvider.MajorIndustryIdentifier);
+        return creditCardProviders.Any(x => x.Id != creditCardProvider.Id && x.MajorIndustryIdentifier == creditCardProvider.MajorIndustryIdentifier);
+    }
+
+    public static bool CheckIfCreditCardProviderNameAlreadyExists(CreditCardProvider creditCardProvider, List<CreditCardProvider> creditCardProviders)
+    {
+        return creditCardProviders.Any(x => x.Id != creditCardProvider.Id && x.Name == creditCardProvider.Name);
+    }
+
+    public static bool CheckIfCardNoAlreadyCaptured(string cardNo, List<CreditCard> creditCards)
+    {
+        return creditCards.Any(x => x.Number == cardNo);
     }
 }

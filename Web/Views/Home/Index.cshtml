@@ -1,8 +1,25 @@
-﻿@{
+﻿@model CreditCard
+@{
     ViewData["Title"] = "Home Page";
+    var exception = ViewData["Exception"] as string;
+    var successMessage = ViewData["SuccessMessage"] as string;
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1>Credit Card Validator</h1>
+    
+    @if (!string.IsNullOrWhiteSpace(exception))
+    {
+        <p style="color:red">@exception</p>
+    }
+    
+    @if (!string.IsNullOrWhiteSpace(successMessage))
+    {
+        <p style="color:green">@successMessage</p>
+    }
+
+    <form asp-controller="Home" asp-action="Index" method="post">
+        <input type="search" asp-for="Number" required="required"></input>
+        <p>Enter your card number</p>
+    </form>
 </div>

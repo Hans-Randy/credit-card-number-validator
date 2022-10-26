@@ -1,8 +1,28 @@
-@model dynamic
+@model CreditCardProvider
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Add Credit Card Provider";
     Layout = "_Layout";
+    var exception = ViewData["Exception"] as string;
 }
 
-<h2>title</h2>
+<h2>Add Credit Card Provider</h2>
+
+@if (!string.IsNullOrWhiteSpace(exception))
+{
+    <p style="color: red">@exception</p>
+}
+
+<form asp-controller="CreditCardProvider" asp-action="Add" method="post">
+    <p>
+        <label asp-for="Name">Name:</label>
+        <input asp-for="Name" required="required" />
+        <span asp-validation-for="Name"></span>
+    </p>
+    <p>
+        <label asp-for="MajorIndustryIdentifier">Major Industry Identifier:</label>
+        <input asp-for="MajorIndustryIdentifier" type="number" required="required" />
+        <span asp-validation-for="MajorIndustryIdentifier"></span>
+    </p>
+    <p><button type="submit">Submit</button></p>
+</form>

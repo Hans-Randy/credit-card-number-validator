@@ -1,4 +1,4 @@
-@model HashSet<Web.Models.CreditCard>
+@model List<Web.Models.CreditCard>
 
 @{
     ViewBag.Title = "Captured Credit Cards";
@@ -6,3 +6,23 @@
 }
 
 <h2>Captured Credit Cards</h2>
+
+
+<table style="width:50%">
+    <thead>
+        <tr>
+            <th>Number</th>
+            <th>Provider</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var creditCard in Model)
+        {
+            <tr>
+                <td>@creditCard.Number</td>
+                <td>@creditCard.CreditCardProviderName</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
